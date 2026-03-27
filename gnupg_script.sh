@@ -9,3 +9,4 @@ gpg --armor --export cesar.arciniegas.mejia4@gmail.com> my_key_publicaa.asc #Exp
 gpg --list-secret-keys --keyid-format=long #Allows listing the private GPG key
 gpg --armor --export-secret-keys 01EE56537872D793 #Export the secret key by specifying the hash of the corresponding keys.
 gpg --import mi_llave_publica.asc #This command allows importing my partner's pub key
+$ echo "Te amo ariel"> doc_no_cifrado.txt #We created an unencrypted text file. The "$"" sign means regular user, while the "#" sign means superuser.
