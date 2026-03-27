@@ -6,3 +6,8 @@ ls
 cd /proc
 #View CPU info
 cat cpuinfo
+#Create binary to run
+gcc saludo.c -o saludo.bin
+move
+sudo mv saludo.bin /bin
+saludo.bin
