@@ -45,7 +45,10 @@ gpg --verify MICOMPAAriel_doc_no_cifrado.txt #Check the authenticity of the file
 
 gpg --edit-key XXXXXXX #An interactive menu opens for managing keys, but with the trust command executed within the menu, a personal trust level is manually assigned to the owner of that key.
 gpg --sign-key XXXXXXX #I put my own signature on your key to certify your identity and verify if it is real.
+pg --verify MICOMPAAriel_doc_no_cifrado.txt #Check the authenticity of the file; GPG verifies if the content was modified or signed by the person it claims to be.
+#We repeat the verification again.
 
 #--------------------------
 #Block F
 #--------------------------
+
