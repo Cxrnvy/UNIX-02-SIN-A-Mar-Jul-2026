@@ -22,3 +22,17 @@ sudo parted -l && echo -e "\n--\n" && lsblk -f && echo -e "\n--\n"
 [ -d /sys/firmware/efi ] && echo "UEFI" || echo "BIOS"
 || #(OR) They mean "or else" (it's the opposite of &&). If the initial check fails (the folder doesn't exist), it skips the previous step and prints "BIOS".
 
+#It is used to display detailed information and the internal status of a specific file.
+stat test.txt
+
+  File: test.txt
+  Size: 11              Blocks: 8          IO Block: 4096   regular file
+Device: 0,45    Inode: 715140      Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/codespace)   Gid: ( 1000/codespace)
+Access: 2026-04-02 13:52:13.141825130 +0000
+Modify: 2026-04-02 13:52:04.358824937 +0000
+Change: 2026-04-02 13:52:04.358824937 +0000
+ Birth: 2026-04-02 13:52:04.358824937 +0000
+
+ #Despite its small size, the system compulsorily reserves a base storage block of 4096 bytes for it, 
+ #which perfectly illustrates internal fragmentation, where the large remaining space within that assigned "box" is left empty and wasted.
