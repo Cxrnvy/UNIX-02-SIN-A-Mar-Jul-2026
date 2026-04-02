@@ -13,3 +13,6 @@ sudo apt upgrade
 #This command specifically downloads and installs the parted program on the system. This tool is essential for the user to manage, create, and resize disk partitions.
 sudo apt install parted
 
+#It examines and displays in an orderly manner on the screen the structure, formats, and partitions of all disks connected to the computer.
+sudo parted -l && echo -e "\n--\n" && lsblk -f && echo -e "\n--\n"
+
