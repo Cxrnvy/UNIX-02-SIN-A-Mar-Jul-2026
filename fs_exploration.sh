@@ -15,4 +15,6 @@ sudo apt install parted
 
 #It examines and displays in an orderly manner on the screen the structure, formats, and partitions of all disks connected to the computer.
 sudo parted -l && echo -e "\n--\n" && lsblk -f && echo -e "\n--\n"
+&& #This means that the command on the right will only be executed if the command on the left finished successfully (without errors).
+#msdos = mbr
 
