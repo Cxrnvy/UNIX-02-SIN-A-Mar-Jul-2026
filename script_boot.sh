@@ -37,3 +37,9 @@ stat . #The stat (status) command extracts and shows absolutely all the metadata
 Device: 7,4 #It indicates the exact physical disk or partition where this folder is saved.
 7: #Tells Linux what type of device driver to use (for example, if it's a SATA hard drive, a virtual disk in your Codespace, a USB, etc.).
 4: #Indicates the specific partition or the exact disk within that group.
+
+ls /etc | head -20 #Shows the first 20 items in the system configuration directory.
+ls /etc | tail -20 #hows the last 20 items in the system configuration directory.
+#ls /etc: Lists everything in /etc (the folder where global system settings and configurations are stored).
+#| (pipe): Takes the output of the first command and sends it as input to the second command. (Bridge between comms).
+#head -20: Filters the text and displays only the top 20 lines.
