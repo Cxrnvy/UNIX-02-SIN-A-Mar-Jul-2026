@@ -11,4 +11,10 @@ cd $HOME #Moves to the home directory
 echo $HOME #Shows your home directory path.
 echo $BASH #Shows where Bash is installed.
 echo $PATH #Shows folders where the system looks for commands.
+cd /usr/local #Moves to the directory for locally installed user programs.
 
+ls -lai #Lists all files (including hidden) with full details and inode (ID) numbers.
+ls -l -a -i #Exactly the same as ls -lai, but writing the options separately.
+ls --all #Long version of writing ls -a. Shows all files (including hidden) in a basic format.
+. #Represents your current directory.
+.. #Represents the parent directory (one level up).
