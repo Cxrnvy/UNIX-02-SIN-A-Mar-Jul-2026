@@ -11,3 +11,4 @@ cd $HOME #Moves to the home directory
 echo $HOME #Shows your home directory path.
 echo $BASH #Shows where Bash is installed.
 echo $PATH #Shows folders where the system looks for commands.
+
