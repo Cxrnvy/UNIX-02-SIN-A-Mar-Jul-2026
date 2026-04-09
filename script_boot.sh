@@ -33,3 +33,7 @@ Apr 9 12:19 #Last modified date and time.
 . #Represents this very folder you are standing in.
 .. #Represents that parent folder.
 
+stat . #The stat (status) command extracts and shows absolutely all the metadata of a file or directory. It is like the extreme version of ls -lai.
+Device: 7,4 #It indicates the exact physical disk or partition where this folder is saved.
+7: #Tells Linux what type of device driver to use (for example, if it's a SATA hard drive, a virtual disk in your Codespace, a USB, etc.).
+4: #Indicates the specific partition or the exact disk within that group.
