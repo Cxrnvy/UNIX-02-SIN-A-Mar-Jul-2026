@@ -7,4 +7,7 @@ ls -lah
 mkdir -- -rf
 #Remove the directory named "-rf", but it will only work if it is completely empty.
 rmdir -- -rf 
-
+#--depth <depth>
+#           Create a shallow clone with a history truncated to the specified number of commits. Implies --single-branch unless --no-single-branch is given to fetch the histories near the
+#           tips of all branches. If you want to clone submodules shallowly, also pass --shallow-submodules.
+#depth: Git clones only the last n commits (reduced history); it should be noted that by default it uses a single branch and that it can be extended with --no-single-branch and --shallow-submodules.
