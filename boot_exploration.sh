@@ -3,4 +3,8 @@ ls -l -a -h
 #This command is exactly equivalent to the previous one
 #-l -a -h (separated) = -lah (combined).
 ls -lah
+#Create a directory literally named "-rf", using -- to indicate that it is not an option but a name.
+mkdir -- -rf
+#Remove the directory named "-rf", but it will only work if it is completely empty.
+rmdir -- -rf 
 
