@@ -67,3 +67,16 @@ ls -l hola.sh
 #Executes the script in the current directory. 
 #(Note: This will give a "Permission denied" error unless we run `chmod +x hola.sh` first to make it executable).
 
+ls /etc
+#Lists the contents of the /etc directory (where system configurations are stored).
+
+touch /etc/prueba.txt
+#Creates an empty file named prueba.txt in the /etc directory. 
+#(Note: This will give a "Permission denied" error because you need to use 'sudo' to write in /etc).
+
+mkdir ~/mi_carpeta
+#Creates a new directory (folder) named "mi_carpeta" inside your home directory (~).
+
+sudo apt install cowsay
+#Downloads and installs the fun program 'cowsay' using the APT package manager.
+#(Note: This will also give an error unless you use 'sudo apt install cowsay', as installing programs requires administrator privileges).
