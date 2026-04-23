@@ -31,3 +31,17 @@ echo "hola" | sudo tee /etc/archivo_protegido > /dev/null
 echo "hola" | sudo tee /etc/archivo_protegido
 
 /dev/null: #It is a “special file” in Linux that discards everything sent to it; that is, any output redirected there is lost and is neither displayed nor saved.
+
+sudo sh -c 'echo "chao" >> /etc/protected_file'
+#This command executes the block as root in a small "sh" shell. This overwrites the protected file, located in the `/etc` directory (configuration files), with the command "chao".
+
+sudo -i
+#Switches you to superuser, allowing you to execute commands without `sudo`. All commands executed are in superuser mode. However, this is an initial login command, loading the official root environment.
+
+sudo su
+#Switches you to superuser, allowing you to execute commands without `sudo`. All commands executed are in superuser mode, but the original user environment is retained.
+
+sudo su -
+#Switches you to superuser, allowing you to execute commands without `sudo`. All commands executed are in superuser mode, but the `-` makes `su` a login shell.
+#These last three commands change the environment variables.
+
