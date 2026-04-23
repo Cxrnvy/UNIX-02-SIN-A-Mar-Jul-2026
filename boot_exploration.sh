@@ -45,3 +45,25 @@ sudo su -
 #Switches you to superuser, allowing you to execute commands without `sudo`. All commands executed are in superuser mode, but the `-` makes `su` a login shell.
 #These last three commands change the environment variables.
 
+echo "$HOME"
+#Prints your user's home directory path (double quotes DO interpret variables).
+
+echo '$HOME'
+#Prints the literal text "$HOME" (single quotes DO NOT interpret variables).
+
+echo '#!/bin/sh' > hola.sh
+#Creates hola.sh and writes the "shebang" (indicates it's a shell script). The '>' overwrites.
+
+echo 'echo "Hola desde mi primer script"' >> hola.sh
+#Appends (>>) this command to the end of hola.sh without overwriting existing content.
+
+cat hola.sh
+#Displays the full content of hola.sh in the terminal.
+
+ls -l hola.sh
+#Shows the file's details and permissions.
+
+./hola.sh
+#Executes the script in the current directory. 
+#(Note: This will give a "Permission denied" error unless we run `chmod +x hola.sh` first to make it executable).
+
