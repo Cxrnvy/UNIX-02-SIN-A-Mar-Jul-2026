@@ -62,3 +62,26 @@
    62  git commit -m "Fix problema 6: sticky bit en /tmp/kepler_zone"
    63  history
    64  history > history.sh
+   65  git add .
+   66  git commit -m "Fix problema 6: sticky bit en /tmp/kepler_zone y agregar un history.sh con historial de comandos"
+   67  cat > /tmp/mi_llave.batch <<'EOF'
+%no-protection
+Key-Type: RSA
+Key-Length: 2048
+Name-Real: vega
+Name-Email: vega@kepler.lab
+Expire-Date: 0
+%commit
+EOF
+
+   68  gpg --batch --generate-key/tmp/mi_llave.batch
+   69  gpg --batch --generate-key /tmp/mi_llave.batch
+   70  gpg --encrypt --recipient vega@kepler.lab kepler/registros/sensores.log 
+   71  git add .
+   72  git commit -m "Fix problema 7: llave gpg generada y sensores.log cifrado"
+   73  gpg --clearsign kepler/ajustes.conf 
+   74  gpg --yes --detach-sign --output kepler/runner.sh.sig kepler/runner.sh
+   75  git add .
+   76  git commit -m "Fix problema 8: firmas gpg corregidas y creadas"
+   77  history
+   78  history > history.sh
