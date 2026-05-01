@@ -60,3 +60,27 @@ cd workspaces/UNIX-02-SIN-A-Mar-Jul-2026/
 
 #Lists the contents of the newly accessed workspace directory.
 ls
+
+#Outputs the current terminal session's command history and redirects (>) it to overwrite or create a file named "history.sh".
+history > history.sh
+
+#Changes the current working directory to the parent directory, moving one level up in the filesystem hierarchy.
+cd ..
+
+#Changes the current working directory back to the current user's home directory (represented by the tilde ~).
+cd ~
+
+#Lists the contents of the system's log directory, where applications and the OS store log files.
+ls /var/log/
+
+#Lists the contents of the /var/log/ directory in long format (-l) and sorts the output by modification time (-t), displaying the newest files first.
+ls -lt /var/log/
+
+#Lists the contents of /var/log/ in long format (-l) and also displays the allocated size of each file in blocks (-s).
+ls -l -s /var/log/
+
+#Lists the contents of /var/log/ in long format (-l), sorts them by file size (-S), and reverses the output (-r) so that the largest files appear at the very bottom of the terminal.
+ls -lSr /var/log/
+
+#Lists the contents of the /var/log/ directory in reverse alphabetical order.
+ls -r /var/log/
