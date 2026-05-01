@@ -99,3 +99,28 @@ chmod 755 prueba.txt
 
 1.1) ls -l prueba.txt
 #Displays the file details again to confirm that the new permissions have been applied correctly.
+
+#-----------------
+#    REAL CASES
+#-----------------
+
+#1.
+#Instead of just 'mkdir', using the '-p' (parents) flag allows the creation of nested directories all at once without getting an error if they already exist.
+mkdir -p ~/mi_carpeta/subcarpeta_nueva
+
+#The logical AND '&&' is used to create a file and immediately verify its creation with 'ls' in a single line. If 'touch' fails, 'ls' won't run.
+touch ~/mi_carpeta/prueba.txt && ls -lah ~/mi_carpeta/
+
+#2.
+#The 600 permission is strictly required by the system for private security keys (like SSH keys). 
+#If left with default permissions, the system will reject the connection for being "too open".
+touch mi_llave_privada.key
+chmod 600 mi_llave_privada.key
+
+#Creates a script, writes the shebang, grants execution permissions, and runs it, all chained together in a single workflow.
+echo '#!/bin/sh' > hola.sh && chmod +x hola.sh && ./hola.sh
+
+#3.
+#Shows the difference between root environments. 'su -c' is used to pass a single command as root to observe how the $HOME variable changes compared to a normal user.
+echo "Normal user home is: $HOME"
+sudo su - -c 'echo "Root login shell home is: $HOME"'
