@@ -15,7 +15,8 @@ Question N2
 ![QEMU Directory Structure](QuestionN2.png)
 Question N3
 ![BusyBox in Embedded Systems](QuestionN3.png)
-
+Question N4
+![Block Allocation and Internal Fragmentation](QuestionN4.png)
 
 Kernel: arch/x86/boot/bzImage is ready  (#1)
 ![Own Distro](image-1.png)
