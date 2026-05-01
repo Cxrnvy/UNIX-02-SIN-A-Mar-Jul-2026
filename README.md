@@ -13,7 +13,8 @@ Question N1
 ![Firmware Type Verification](QuestionN1.png)
 Question N2
 ![QEMU Directory Structure](QuestionN2.png)
-
+Question N3
+![BusyBox in Embedded Systems](QuestionN3.png)
 
 
 Kernel: arch/x86/boot/bzImage is ready  (#1)
