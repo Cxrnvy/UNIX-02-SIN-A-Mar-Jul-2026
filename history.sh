@@ -157,7 +157,7 @@ dd if=/dev/sda of=/dev/sdb bs=1M count=50
 #Saves the final command history, including all recent actions, into "history.sh", overwriting the file once more.
 history > history.sh
 
-#
+#-----------------
 #Real-Life Cases
 #-----------------
 
