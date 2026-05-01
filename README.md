@@ -11,7 +11,8 @@ Configuration ready
 
 Question N1
 ![Firmware Type Verification](QuestionN1.png)
-
+Question N2
+![QEMU Directory Structure](QuestionN2.png)
 
 
 
