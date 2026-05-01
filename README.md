@@ -2,5 +2,11 @@
 Repo for intro to UNIX
 
 #Real-life Cases in practice.
-
+#1.
 ![DIRECTORY & FILE COMBINATIONS](1.png)
+
+#2.
+![PERMISSIONS chmod](2.png)
+
+#3.
+
