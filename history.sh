@@ -84,3 +84,21 @@ ls -lSr /var/log/
 
 #Lists the contents of the /var/log/ directory in reverse alphabetical order.
 ls -r /var/log/
+
+#Switches the current session to the root superuser account and starts a login shell, loading all of root's environment variables (like PATH and HOME).
+su -
+
+#Functionally identical to 'su -'; it logs in as the root user with a complete login environment.
+su -l
+
+#The extended, verbose version of 'su -l', executing a full login shell as the root user.
+su --login
+
+#Executes the "Steam Locomotive" program. This is a common joke package installed to display an ASCII train moving across the screen when a user accidentally mistypes 'ls'.
+sl
+
+#Attempts to switch the current user session to a user account named "sl".
+su sl
+
+#Executes the 'sl' (Steam Locomotive) joke program with administrator privileges.
+sudo sl
