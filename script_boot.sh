@@ -40,6 +40,39 @@ Device: 7,4 #It indicates the exact physical disk or partition where this folder
 
 ls /etc | head -20 #Shows the first 20 items in the system configuration directory.
 ls /etc | tail -20 #hows the last 20 items in the system configuration directory.
-#ls /etc: Lists everything in /etc (the folder where global system settings and configurations are stored).
-#| (pipe): Takes the output of the first command and sends it as input to the second command. (Bridge between comms).
-#head -20: Filters the text and displays only the top 20 lines.
+ls /etc: Lists everything in /etc (the folder where global system settings and configurations are stored).
+| (pipe): Takes the output of the first command and sends it as input to the second command. (Bridge between comms).
+head -20: Filters the text and displays only the top 20 lines.
+
+#-------------
+# REAL CASES
+#-------------
+lsblk -f 
+#Plugged in a USB drive to format it. Use this to ensure it's /dev/sdb and NOT accidentally wipe /dev/sda (where OS lives).
+
+sudo parted -l 
+#Cloning a 4TB hard drive. Use this to confirm it uses a GPT table, since the old MBR only supports up to 2TB.
+
+[ -d /sys/firmware/efi ] && echo "UEFI" || echo "BIOS"
+#Want to dual-boot Windows and Linux. Run this to know if you must install the bootloader in modern (UEFI) or legacy (BIOS) mode.
+
+cat /var/log/nginx/error.log | tail -20 
+#Filters and reads only the last 20 errors instead of opening a massive log file that could freeze the system.
+
+ls /etc | grep "apache" 
+#Filters hundreds of files looking for matches to find a specific web server configuration folder.
+
+ls -lai ~/.gnupg 
+#Inspects the exact permissions and inode numbers of GPG encryption keys to ensure unauthorized users cannot read them.
+
+stat payload.py 
+#Extracts the exact creation and modification timestamps of a Python script during a cybersecurity forensic analysis.
+
+mkdir -p java_project/src/models 
+#Sets up the nested directory structure for a new Java medical consultation system project in a single command.
+
+cd /var/lib/mysql 
+#Navigates directly to the absolute path where SQL database files are stored to investigate an injection vulnerability.
+
+git branch -a 
+#Lists all local and remote branches to verify the current working state before pushing a university presentation project.
