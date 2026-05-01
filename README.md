@@ -9,4 +9,4 @@ Repo for intro to UNIX
 ![PERMISSIONS chmod](2.png)
 
 #3.
-
+![ENVIRONMENT VARIABLES](3.png)
