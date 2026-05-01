@@ -129,3 +129,30 @@ ls -l filesystem.sh
 
 #Executes the "filesystem.sh" script located in the current working directory.
 ./filesystem.sh
+
+#Concatenates and prints the entire contents of the "README.md" file directly to the terminal screen.
+cat README.md
+
+#Prints the first 10 lines (which is the default behavior) of the "README.md" file to the terminal.
+head README.md 
+
+#Prints the first 10 lines of the "filesystem.sh" script.
+head filesystem.sh 
+
+#Prints the last 10 lines (which is the default behavior) of the "filesystem.sh" script.
+tail filesystem.sh 
+
+#Prints exactly the first 5 lines (-n 5) of the "filesystem.sh" script.
+head -n 5 filesystem.sh 
+
+#Prints exactly the last 5 lines (-n 5) of the "filesystem.sh" script.
+tail -n 5 filesystem.sh 
+
+#Copies the system's user account information file (/etc/passwd) into the current working directory (represented by the dot .).
+cp /etc/passwd .
+
+#Uses the "Data Duplicator" (dd) tool to copy raw data block-by-block. It takes input (if) from the first storage drive (/dev/sda), writes it to the output (of) on the second storage drive (/dev/sdb), using a block size (bs) of 1 Megabyte, and stops after copying 50 blocks (count). This copies exactly 50MB of raw partition data.
+dd if=/dev/sda of=/dev/sdb bs=1M count=50
+
+#Saves the final command history, including all recent actions, into "history.sh", overwriting the file once more.
+history > history.sh
