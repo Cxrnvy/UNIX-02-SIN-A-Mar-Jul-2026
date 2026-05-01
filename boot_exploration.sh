@@ -67,6 +67,9 @@ ls -l hola.sh
 #Executes the script in the current directory. 
 #(Note: This will give a "Permission denied" error unless we run `chmod +x hola.sh` first to make it executable).
 
+chmod +x hola.sh
+#This command is used to give execution permission to the hola.sh file.
+
 ls /etc
 #Lists the contents of the /etc directory (where system configurations are stored).
 
@@ -77,6 +80,22 @@ touch /etc/prueba.txt
 mkdir ~/mi_carpeta
 #Creates a new directory (folder) named "mi_carpeta" inside your home directory (~).
 
-sudo apt install cowsay
+apt install cowsay
 #Downloads and installs the fun program 'cowsay' using the APT package manager.
 #(Note: This will also give an error unless you use 'sudo apt install cowsay', as installing programs requires administrator privileges).
+
+touch prueba.txt
+#Creates an empty file named "prueba.txt" (or updates its modification date if it already exists).
+
+chmod 600 prueba.txt
+#Sets read and write permissions only for the file owner (rw-------). No one else will have access.
+
+ls -l prueba.txt
+#Displays the file details in long format (such as size, owner, and date) to verify the assigned permissions.
+
+# Change permissions
+chmod 755 prueba.txt
+#Grants full permissions (read, write, execute) to the owner, and read and execute permissions to the group and other users (rwxr-xr-x).
+
+ls -l prueba.txt
+#Displays the file details again to confirm that the new permissions have been applied correctly.
