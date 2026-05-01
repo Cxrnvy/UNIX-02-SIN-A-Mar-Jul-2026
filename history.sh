@@ -102,3 +102,30 @@ su sl
 
 #Executes the 'sl' (Steam Locomotive) joke program with administrator privileges.
 sudo sl
+
+#Changes the directory using an absolute path (starting from root) directly to the specific UNIX workspace folder.
+cd /workspaces/UNIX-02-SIN-A-Mar-Jul-2026/
+
+#Displays detailed information (permissions, owner, size, date) specifically for the file named "filesystem.sh".
+ls -l filesystem.sh 
+
+#Modifies the permissions of "filesystem.sh" to grant execution rights (+x) specifically to the user (u) who owns the file.
+chmod u+x filesystem.sh 
+
+#Lists the directory contents in long format, likely used here to visually verify the recent permission changes.
+ls -l
+
+#Displays the detailed information for "filesystem.sh" again to confirm the 'x' (execute) permission has been successfully applied to the user.
+ls -l filesystem.sh 
+
+#Executes the script named "hello.sh" located in the current working directory (represented by ./).
+./hello.sh
+
+#Changes the ownership (chown) of "filesystem.sh" to the 'root' user, using 'sudo' because standard users cannot give away files to root.
+sudo chown root filesystem.sh 
+
+#Displays the file details to verify that the owner column now says 'root' instead of the original user.
+ls -l filesystem.sh 
+
+#Executes the "filesystem.sh" script located in the current working directory.
+./filesystem.sh
