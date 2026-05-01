@@ -1,0 +1,7 @@
+#Reason for the kernel compilation error on the physical machine: 
+#When attempting to compile the kernel on the first try, I used all the CPU cores, 
+#which caused my machine to freeze and forced me to restart it.
+#After that, I tried repeatedly, and the problem was the operating system (Linux Ubuntu) I was using, 
+#which prevented me from compiling the kernel due to missing libraries and various errors.
+#To resolve this, I proceeded to perform the task within codespaces on GitHub, since it acts as a virtual machine. 
+I was able to complete the task, later than my classmates, but I obtained the expected result: compiling the kernel.
