@@ -90,12 +90,12 @@ touch prueba.txt
 chmod 600 prueba.txt
 #Sets read and write permissions only for the file owner (rw-------). No one else will have access.
 
-ls -l prueba.txt
+1.) ls -l prueba.txt
 #Displays the file details in long format (such as size, owner, and date) to verify the assigned permissions.
 
 # Change permissions
 chmod 755 prueba.txt
 #Grants full permissions (read, write, execute) to the owner, and read and execute permissions to the group and other users (rwxr-xr-x).
 
-ls -l prueba.txt
+1.1) ls -l prueba.txt
 #Displays the file details again to confirm that the new permissions have been applied correctly.
