@@ -9,6 +9,7 @@ Configuration in the menu, choosing 64 bit kernel
 Configuration ready
 ![Config ready](4.jpeg)
 
+
 Question N1
 ![Firmware Type Verification](QuestionN1.png)
 Question N2
@@ -17,6 +18,9 @@ Question N3
 ![BusyBox in Embedded Systems](QuestionN3.png)
 Question N4
 ![Block Allocation and Internal Fragmentation](QuestionN4.png)
+Question N5
+![Partition and Filesystem Analysis](QuestionN5.png)
+
 
 Kernel: arch/x86/boot/bzImage is ready  (#1)
 ![Own Distro](image-1.png)
