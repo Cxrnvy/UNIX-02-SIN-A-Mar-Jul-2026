@@ -156,3 +156,25 @@ dd if=/dev/sda of=/dev/sdb bs=1M count=50
 
 #Saves the final command history, including all recent actions, into "history.sh", overwriting the file once more.
 history > history.sh
+
+#
+#Real-Life Cases
+#-----------------
+
+#A server crashes and it is necessary to know which application failed. This command lists logs sorted by time, showing the most recently modified files at the very top.
+ls -lt /var/log/
+
+#The server sends a "Disk Space 99% Full" alert. This command sorts all logs by size and reverses the output, placing the heaviest, disk-consuming files right at the bottom of the screen for easy identification.
+ls -lSr /var/log/
+
+#An automated script is created to back up a database. If execution permissions are not granted, the system's task scheduler (cron) will get a "Permission denied" error when it tries to run it at midnight.
+chmod u+x database_backup.sh
+
+#A junior developer uploads a critical system script. The owner is changed to 'root' so that if the developer's account gets compromised, attackers still cannot modify or delete this vital file.
+sudo chown root security_script.sh
+
+#After executing complex commands to set up a web server, the session history is dumped into a file. This allows for easy conversion into an automated installation script later, eliminating the need to rely on memory.
+history > setup_server.sh
+
+#An application log file is 5GB in size. Opening it with a normal text editor would freeze the server. Using 'tail' allows reading just the last few errors instantly without loading the whole file into RAM.
+tail -n 50 /var/log/application.log
