@@ -239,3 +239,4 @@ CMD ["/bin/bash"]
 
 
 RUN echo "PROMPT=\"%F{cyan}[Cesar-UIDE]%f %F{yellow}%1~%f %(?.%F{green}✓%f.%F{red}✗ %?%f) \\$ \"" >> /root/.zshrc
+RUN echo "PROMPT=\"%F{cyan}[Cesar-UIDE]%f %F{yellow}%1~%f %(?.%F{green}✓%f.%F{red}✗ %?%f) \\\$ \"" >> /root/.zshrc
