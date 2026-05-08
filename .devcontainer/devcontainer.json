@@ -98,48 +98,4 @@
             "settings": {
                 // Cuando abras una terminal nueva, que sea Bash por
                 // defecto (no zsh, no sh).
-                "terminal.integrated.defaultProfile.linux": "bash",
-                // Final de línea estilo UNIX (\n) en vez de Windows
-                // (\r\n). ESTO ES CRÍTICO: los scripts shell FALLAN
-                // silenciosamente si tienen \r\n, con errores tan raros
-                // como "bad interpreter: No such file or directory".
-                "files.eol": "\n"
-            }
-        }
-    },
-
-    // ------------------------------------------------------------------------
-    // containerEnv: variables de entorno al arrancar el contenedor
-    // ------------------------------------------------------------------------
-    // Similar al ENV del Dockerfile, pero se aplican cada vez que se
-    // INICIA el contenedor (no solo al construirlo). Las definimos
-    // también aquí para asegurarnos de que estén disponibles en las
-    // terminales que abra VS Code.
-    "containerEnv": {
-        "LANG": "es_ES.UTF-8",
-        "TERM": "xterm-256color"
-    },
-
-    // ------------------------------------------------------------------------
-    // hostRequirements: mínimo de máquina que pedimos a Codespaces
-    // ------------------------------------------------------------------------
-    // Codespaces ofrece distintos tamaños de VM (máquina virtual).
-    // Pedimos al menos:
-    //
-    //   cpus: 2          -> 2 núcleos de procesador. Suficiente para
-    //                       compilar, escanear y editar cómodamente.
-    //   memory: "8gb"    -> 8 GB de RAM. Tor + nmap + análisis de logs
-    //                       holgado, sin riesgo de que se cuelgue.
-    //   storage: "32gb"  -> 32 GB de disco. La imagen pesa ~1.5 GB y
-    //                       queremos margen para logs, capturas .pcap,
-    //                       proyectos de los y las estudiantes, etc.
-    //
-    // Si el estudiante intenta usar una máquina más pequeña, Codespaces
-    // le avisará antes de crear el Codespace. Esto evita el típico
-    // "profe, se me congeló todo" por falta de memoria.
-    "hostRequirements": {
-        "cpus": 2,
-        "memory": "8gb",
-        "storage": "32gb"
-    }
-}
+                "terminal.integrated.defaultProfile.linux": "zsh"echo 'RUN echo "PROMPT=\"%F{cyan}[Cesar-UIDE]%f %F{yellow}%1~%f %(?.%F{green}✓%f.%F{red}✗ %?%f) \\\$ \"" >> /root/.zshrc' >> .devcontainer/Dockerfile
