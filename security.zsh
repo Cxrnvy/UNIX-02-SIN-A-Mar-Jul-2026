@@ -46,3 +46,13 @@ echo "Hola" > mi_archivo
 # Generate a text file named 'mi_archivo' containing the string 'Hola' using output redirection, a process that relies on the system's current umask settings to determine the file's security bits at the moment of creation.
 ls -l mi_archivo
 # Execute a detailed long-format listing of the newly created file to inspect its metadata, specifically confirming that the permissions bits accurately reflect the 'rw-r--r--' (644) state expected from a 022 mask.
+groups
+#Display the names of the groups the current user belongs to, which is essential for understanding the user's collective access rights and privileges over shared system resources.
+groupadd grupo_test
+#Create a new system group named "grupo_test" to allow for the categorization of users and the management of shared file permissions across multiple accounts.
+groups
+#Re-examine the current user's group memberships to verify if the environment reflects any recent changes or to confirm which groups are active in the current shell session.
+touch comun
+#Create a new empty file named "comun" which will automatically be assigned to the user's primary group, serving as a baseline for testing group-level access and ownership.
+ls -l comun
+#Execute a detailed long-format listing of the file "comun" to specifically inspect the group ownership field and verify how the group permission bits (r, w, x) are currently configured.
