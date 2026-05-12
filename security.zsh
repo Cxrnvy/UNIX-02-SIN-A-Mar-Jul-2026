@@ -40,3 +40,9 @@ touch secreto.txt
 # Create a new, empty file named "secreto.txt" to demonstrate how the highly restrictive 077 mask automatically protects sensitive data from being read or modified by any other user on the system.
 mkdir privado
 # Initialize a new directory called "privado" to verify that the current umask settings prevent any users other than the creator from listing, entering, or modifying the contents of the folder.
+umask 22
+# Set the file mode creation mask to 022, which is the standard system default that allows the owner full read and write access while restricting the group and others to read-only access for files and read-and-execute access for directories.
+echo "Hola" > mi_archivo
+# Generate a text file named 'mi_archivo' containing the string 'Hola' using output redirection, a process that relies on the system's current umask settings to determine the file's security bits at the moment of creation.
+ls -l mi_archivo
+# Execute a detailed long-format listing of the newly created file to inspect its metadata, specifically confirming that the permissions bits accurately reflect the 'rw-r--r--' (644) state expected from a 022 mask.
