@@ -68,3 +68,11 @@ ls -l comun
 # List the file "comun" in long format to verify that the group ownership has been successfully updated and to inspect the resulting access rights.
 chown cesar:grupo_test mi_archivo
 #Change both the user and group ownership of "mi_archivo" in a single command, assigning the file to the user "cesar" and the group "grupo_test" to manage multi-level access control.
+mkdir -p proyecto/sub
+# Create a nested directory hierarchy using the -p flag to ensure that all necessary parent directories are automatically generated in a single command.
+touch proyecto/readme proyecto/sub/datos
+# Generate multiple empty files at different levels of the directory tree to populate the project structure for testing file-level ownership and access.
+chown -R cesar:grupo_test proyecto
+# Recursively change the ownership of the "proyecto" directory and every file or subfolder within it to the user "cesar" and the group "grupo_test" simultaneously.
+ls -lR proyecto
+# Execute a recursive long-format listing to perform a comprehensive audit of the entire directory tree, confirming that ownership and permissions are correctly inherited by all items.
