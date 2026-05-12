@@ -55,4 +55,17 @@ groups
 touch comun
 #Create a new empty file named "comun" which will automatically be assigned to the user's primary group, serving as a baseline for testing group-level access and ownership.
 ls -l comun
-#Execute a detailed long-format listing of the file "comun" to specifically inspect the group ownership field and verify how the group permission bits (r, w, x) are currently configured.
+#Execute a detailed long-format listing of the file "comun" to specifically inspect the group ownership field and verify how the group permission bits (r, w, x) are currently configured.    1  umask
+useradd -m -s /usr/bin/zsh cesar
+# Create a new system user named "cesar" with the -m flag to generate a home directory and the -s flag to set Zsh as the default login shell.
+cat /etc/group
+# Display the contents of the group configuration file to view a complete list of all existing groups and the users currently assigned to them.
+usermod -a -G grupo_test luna
+# Modify the user "luna" by appending them to the "grupo_test" secondary group without removing them from any of their current group memberships.
+usermod -a -G grupo_test cesar
+# Update the user "cesar" to include them in "grupo_test," ensuring they have the shared permissions associated with that specific group.
+chgrp grupo_test comun
+# Change the group ownership of the file "comun" to "grupo_test," allowing all members of that group to interact with the file based on group-level permissions.
+ls -l comun
+# List the file "comun" in long format to verify that the group ownership has been successfully updated and to inspect the resulting access rights.
+
