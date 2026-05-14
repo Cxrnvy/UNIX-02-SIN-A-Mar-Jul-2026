@@ -89,3 +89,27 @@ id -g
 #Group ID principal 
 id -G
 #all IDs Group
+
+cat /etc/group | grep root
+#grep is used to search for lines that contain a specific pattern within one or more files.
+
+#Create a new directory named 'proyecto_unix' inside the user's home directory
+mkdir ~/proyecto_unix/
+
+#List all contents of the new directory in long format (-l), including hidden files (-a)
+ls -la ~/proyecto_unix/
+
+#groupadd [options] group_name
+sudo groupadd desarrolladores
+#Create a simple group
+sudo groupadd -g 2000 operaciones
+#System group (GID < 1000)
+sudo groupadd --system servicios_web
+#Specific GID
+
+grep "desarrolladores\|operaciones\|servicios_web" /etc/group
+#Verify that they were created (using basic grep, requires escaping the pipe \|)
+grep "desarrolladores|operaciones|servicios_web" /etc/group
+#Verify using -E (Extended regular expressions, cleaner syntax)
+grep "GID_MIN\|GID_MAX\|SYS_GID" /etc/login.defs
+#The system groups has less GID to the minimun user
