@@ -76,3 +76,8 @@ chown -R cesar:grupo_test proyecto
 # Recursively change the ownership of the "proyecto" directory and every file or subfolder within it to the user "cesar" and the group "grupo_test" simultaneously.
 ls -lR proyecto
 # Execute a recursive long-format listing to perform a comprehensive audit of the entire directory tree, confirming that ownership and permissions are correctly inherited by all items.
+
+id
+#view all users on the system
+cat/etc/passwd | head -10
+#View the 10 firsts lines in passwd file 
