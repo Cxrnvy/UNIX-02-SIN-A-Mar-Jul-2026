@@ -81,3 +81,11 @@ id
 #view all users on the system
 cat/etc/passwd | head -10
 #View the 10 firsts lines in passwd file 
+
+#View the UID and GID of actual user
+id -u
+#User ID
+id -g
+#Group ID principal 
+id -G
+#all IDs Group
