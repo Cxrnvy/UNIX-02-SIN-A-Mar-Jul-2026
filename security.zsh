@@ -113,3 +113,28 @@ grep "desarrolladores|operaciones|servicios_web" /etc/group
 #Verify using -E (Extended regular expressions, cleaner syntax)
 grep "GID_MIN\|GID_MAX\|SYS_GID" /etc/login.defs
 #The system groups has less GID to the minimun user
+
+#Create groups with addgroup
+sudo addgroup diseño
+sudo addgroup --gid 2100 marketing
+sudo addgroup --system cache_web
+
+#Verify
+grep "diseño\|marketing\|cache_web" /etc/group
+
+#View which groups the actual user belongs
+groups
+id
+
+#Add user to a group with usermod (low level)
+sudo usermod -aG desarrolladores $USER 
+sudo usermod -aG diseño $USER 
+
+#Create a temp group for the demo
+sudo groupadd grupo_temporal
+sudo usermod -aG grupo_temporal (USER)
+id root
+
+#Now the fail: usermod without -a
+sudo usermod -G desarrolladores (USER)
+#This removes all child groups except developers.
