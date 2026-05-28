@@ -41,3 +41,13 @@ echo "Grupo restaurado: $(id -gn)"
 
 #Compare both files
 ls -la ~/antes_de_newgrp.txt ~/dentro_de_newgrp.txt
+
+#Creating a new group with namme "grupo:restringido"
+groupadd grupo_restringido
+#Setting a passwd to new group
+gpasswd grupo_restringido
+
+#Creating a new user named (cesar)
+useradd -m "usuario"
+su "usuario" #loggin as "cesar"
+    newgrp grupo_restringido #Joining temporary to new group with newgrp with passwd
