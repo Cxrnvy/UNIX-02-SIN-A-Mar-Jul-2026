@@ -118,3 +118,46 @@ su -
 #Immediately shut down the system
 shutdown now
 
+#Display the current system date and time
+date
+
+#Schedule a system shutdown at a specific time (01:51)
+shutdown 01:51  
+
+#Schedule a shutdown in 1 minute and broadcast a warning message to logged-in users
+shutdown +1 "Goodbye World!"
+
+#Display current network interface configuration and IP addresses
+ifconfig
+
+#Send exactly 4 ICMP echo requests (pings) to test connectivity to 192.168.1.2
+ping -c 4 192.168.1.2  
+
+#Send exactly 4 pings to test connectivity to 192.168.1.3
+ping -c 4 192.168.1.3 
+
+#Log out of the current shell (or switch back to the previous user)
+exit
+
+#Display a basic snapshot of running processes for the current terminal
+ps
+
+#Display all processes currently running on the entire system
+ps -e
+
+#Display all system processes using a full-format listing (adds UID, PID, PPID, etc.)
+ps -ef
+
+#Update the local package index to reflect the latest changes from repositories
+sudo apt-get update 
+
+#Search the local package cache for any software containing the word 'cow'
+apt-cache search cow
+
+#Install the 'cowsay' package with root privileges
+sudo apt-get install cowsay
+
+#Run cowsay to print the text inside a speech bubble drawn by an ASCII cow
+cowsay 'NDG Linux Unhatched'
+
+#Install the newest versions of all packages currently installed on the system
