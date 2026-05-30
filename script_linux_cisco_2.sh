@@ -161,3 +161,67 @@ sudo apt-get install cowsay
 cowsay 'NDG Linux Unhatched'
 
 #Install the newest versions of all packages currently installed on the system
+sudo apt-get upgrade
+
+#Uninstall the 'cowsay' package but leave its configuration files behind
+sudo apt-get remove cowsay
+
+#Completely uninstall 'cowsay', removing both the package and its configuration files
+sudo apt-get purge cowsay
+
+#Allow the currently logged-in user to change their own password
+passwd
+
+#Display the password status for the user 'sysadmin' (requires root privileges)
+passwd -S sysadmin
+
+#Switch user to root (prompts for root password, does not fully load root environment)
+su root  
+
+#Change the password for the user 'sysadmin' (must be run as root)
+passwd sysadmin
+
+#Exit the root shell and return to the previous user session
+exit
+
+#List the contents of the Documents folder in the user's home directory
+ls ~/Documents
+
+#List the contents of the current directory
+ls
+
+#Attempt to list 'fakefile' (will return an error if it doesn't exist)
+ls fakefile
+
+#Change directory to the Documents folder
+cd ~/Documents/
+
+#Display the contents of 'food.txt'
+cat food.txt
+
+#Read 'food.txt' and redirect output to create or overwrite 'newfile1.txt'
+cat food.txt > newfile1.txt
+
+#Read 'newfile1.txt' to verify the contents were copied
+cat newfile1.txt 
+
+#Print the string "Hello" directly to the terminal screen
+echo "Hello" 
+
+#Check the contents of 'newfile1.txt' again
+cat newfile1.txt
+
+#Overwrite 'newfile1.txt' with the string "I like food."
+echo "I like food." > newfile1.txt
+
+#Verify that the file was successfully overwritten
+cat newfile1.txt
+
+#Append the string "This food is good." to the bottom of 'newfile1.txt'
+echo "This food is good." >> newfile1.txt
+
+#Verify the new line was successfully added to the file
+cat newfile1.txt
+
+#Open 'newfile.txt' in the 'vi' command-line text editor
+vi newfile.txt
