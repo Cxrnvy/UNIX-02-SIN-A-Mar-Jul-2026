@@ -39,3 +39,82 @@ grep 'root' passwd
 grep '^root' /etc/passwd
 #root:x:0:0:root:/root:/bin/bash
 
+#Display the entire contents of the 'alpha-first.txt' file
+cat alpha-first.txt
+#A is for Animal                                                                 
+#B is for Bear                                                                   
+#C is for Cat                                                                    
+#D is for Dog                                                                    
+#E is for Elephant                                                               
+#F is for Flower
+
+#Search for lines that specifically END with the letter 'r' using the '$' anchor
+grep 'r$' alpha-first.txt
+#B is for Bear
+#F is for Flower
+
+#Display the contents of 'red.txt'
+cat red.txt
+#Red
+#Reef
+#Rot
+#Reeed
+#Rd
+#od
+#Roof
+#Reed
+#Root
+#reel
+#read
+
+#Search for lines containing an 'r', exactly two of any character (.), and an 'f'
+grep 'r..f' red.txt
+
+#Search for lines containing an 'r', exactly two of any character (.), and a 'd'
+grep 'r..d' red.txt
+
+#Search for lines that contain a sequence of at least four characters
+grep '....' red.txt
+
+#Search for lines containing 'r', any two characters, and 't' in the /etc/passwd file
+grep 'r..t' /etc/passwd
+
+#Display the contents of 'profile.txt'
+cat profile.txt
+
+#Search for lines containing at least one digit (0 through 9)
+grep '[0-9]' profile.txt
+
+#Search for lines containing any character that is NOT a digit (using ^ to negate)
+grep '[^0-9]' profile.txt
+
+#Search for a literal period/dot (escaping its usual regex meaning of "any character")
+grep '[.]' profile.txt
+
+#Display the contents of 'red.txt' again
+cat red.txt
+
+#Search for 'r', followed by zero or more 'e's (*), ending with 'd' (e.g. rd, red, reed)
+grep 're*d' red.txt
+
+#Search for 'r', followed by zero or more 'o's or 'e's, ending with 'd'
+grep 'r[oe]*d' red.txt
+
+#Search for zero or more 'z's (will match every line, since zero occurrences is always true)
+grep 'z*' red.txt
+
+#Search for zero or more 'e's (will also match every line)
+grep 'e*' red.txt
+
+#Search for one 'e' followed by zero or more 'e's (ensures at least one 'e' is present)
+grep 'ee*' red.txt
+
+#Search for the string 'red' in standard input (terminal will hang waiting for user input)
+grep 'red'
+
+#Switch to the root user account and fully load its environment variables
+su - 
+
+#Immediately shut down the system
+shutdown now
+
