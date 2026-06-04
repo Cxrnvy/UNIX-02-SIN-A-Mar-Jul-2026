@@ -1,6 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
+set -x
+
 bash --version
+set -x
 env
+set +x
 echo ${SHELL}
 echo ${RANDOM}
 echo ${UID}
@@ -11,3 +15,5 @@ df --human-readable
 #bash -r blackhatbash1.sh
 #bash -n blackhatbash1.sh
 #bash -x blackhatbash1.sh
+
+set +x
