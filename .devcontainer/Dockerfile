@@ -220,13 +220,37 @@ RUN git config --system --add safe.directory '*' \
 # Prompt del curso para bash
 # Cambiar shell de login de root a zsh dentro de la imagen,
 # para que chsh ya no haga falta y todo sea consistente.
-RUN chsh -s /usr/bin/zsh root
+# Cambiar shell de login de root a bash dentro de la imagen
+RUN chsh -s /bin/bash root
 
-# Prompt institucional para los y las estudiantes del curso
-RUN cat >> /root/.zshrc <<'EOF'
+# Prompt institucional adaptado para Bash
+RUN cat >> /root/.bashrc <<'EOF'
 
 # ===== Valida si un comando fue ejecutado correctamente =====
-PROMPT='%F{cyan}[Cesar-Arciniegas]%f %F{yellow}%1~%f %(?.%F{green}✓.%F{red}✗ %?)%f %# '
+prompt_cmd() {
+    local ret=$? # Captura el código de salida del último comando
+    
+    # Definición de colores
+    local cyan="\[\033[0;36m\]"
+    local yellow="\[\033[0;33m\]"
+    local green="\[\033[0;32m\]"
+    local red="\[\033[0;31m\]"
+    local reset="\[\033[0m\]"
+
+    local status
+    if [ $ret -eq 0 ]; then
+        status="${green}✓"
+    else
+        status="${red}✗ $ret"
+    fi
+
+    # Genera el prompt: Nombre en cyan, Carpeta en amarillo, Estado y símbolo #
+    PS1="${cyan}Cesar-Arciniegas ${yellow}\W ${status}${reset} \\$ "
+}
+# PROMPT_COMMAND ejecuta la función antes de dibujar el prompt cada vez
+PROMPT_COMMAND=prompt_cmd
+
 EOF
 
-CMD ["/usr/bin/zsh"]
+# Lanza bash por defecto
+CMD ["/bin/bash"]
