@@ -17,37 +17,21 @@
 # ============================================================================
 
 
-# ----------------------------------------------------------------------------
-# FROM: imagen base sobre la que vamos a construir
-# ----------------------------------------------------------------------------
-# En lugar de partir de cero, partimos de la imagen oficial de Kali Linux
-# en su versión "rolling" (actualización continua, siempre al día).
-# Todo lo que instalemos más abajo se apila ENCIMA de esta base.
+# FROM kalilinux/kali-rolling:latest
+# The Kali Linux base image is for use in security testing with a specially-created operating system to create the environment where the vulnerability testing can take place (See BHB Chapter 3.) 
+# Because this will pull the latest rolling release of the base image, it will always be up-to-date when you build it.
+# Docker uses layers to cache images, therefore the order in which instructions are written on the Dockerfile matters greatly! 
+# Placing this instruction as the very first instruction is important because if any higher layer changes (i.e., a later version of the same base image), 
+# the caching for every other layer that followed it will also be invalidated and you would have to start over with a very slow build.
 FROM kalilinux/kali-rolling:latest
 
 
-# ----------------------------------------------------------------------------
-# ENV: variables de entorno permanentes dentro del contenedor
-# ----------------------------------------------------------------------------
-# Las variables de entorno son "ajustes globales" que cualquier programa
-# del sistema puede leer. Se escriben en MAYÚSCULAS por convención.
-#
-#   DEBIAN_FRONTEND=noninteractive
-#     Le dice al instalador de paquetes (apt) "no me hagas preguntas
-#     interactivas, asume respuestas por defecto". Sin esto, algunos
-#     paquetes pausarían el build esperando que pulsemos una tecla y se
-#     quedaría colgado para siempre (porque no hay nadie mirando).
-#
-#   LANG / LC_ALL=es_ES.UTF-8
-#     Configuran idioma y codificación de caracteres. UTF-8 es lo que
-#     permite que acentos, ñ, €, emojis, etc. se muestren bien.
-#
-#   TERM=xterm-256color
-#     Le indica a los programas que la terminal admite 256 colores, para
-#     que vim, nvim, htop, etc. se vean con todos sus colores.
-#
-# La barra invertida "\" al final de cada línea significa "esto continúa
-# en la línea siguiente". Solo es para legibilidad.
+b. ENV
+# When the system loads certain environment variables into the system, 
+# they are used to load certain configurations variables that will allow programs to reference those values while they are executing (BHB Ch. 1) [cite: 557, 558].
+# DEBIAN_FRONTEND=non-interactive prevents the Apt package manager from halting an automated build to wait for a user to provide input.
+# LANG and LC_ALL define the localization of the system to allow it to support the character encoding known as UTF-8.
+# TERM tells the system that the terminal in use supports the 256 colors function.D
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=es_ES.UTF-8 \
     LC_ALL=es_ES.UTF-8 \
