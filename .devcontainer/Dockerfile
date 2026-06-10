@@ -17,7 +17,7 @@
 # ============================================================================
 
 
-# FROM kalilinux/kali-rolling:latest
+# a. FROM kalilinux/kali-rolling:latest
 # The Kali Linux base image is for use in security testing with a specially-created operating system to create the environment where the vulnerability testing can take place (See BHB Chapter 3.) 
 # Because this will pull the latest rolling release of the base image, it will always be up-to-date when you build it.
 # Docker uses layers to cache images, therefore the order in which instructions are written on the Dockerfile matters greatly! 
@@ -37,7 +37,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LC_ALL=es_ES.UTF-8 \
     TERM=xterm-256color
 
-# c.
+# c. debconf-set-selections
 # Using a pipe allows us to pre-answer the wireshark install prompt, as described in BHB Chapter 1 (cc. 992), 
 # thus allowing Wireshark to complete the build without waiting for the user to answer whether or not non-root users are allowed to capture traffic. 
 # Pre-answer "no" continues the build.
@@ -62,8 +62,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     netcat-traditional socat dnsutils whois traceroute mtr-tiny iproute2 net-tools iputils-ping \
     tor torsocks proxychains4 obfs4proxy httpie \
 
-# e, f. 
-# sed -i and locale-gen
+# e, f. sed -i and locale-gen
 # We will be using the stream editor 'sed' to perform an inline replacement, 
 # specifically uncommenting the Spanish locale directly inside /etc/locale.gen (BHB Ch. 2) 
 # and then having locale-gen compile it.
@@ -71,41 +70,33 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && locale-gen \
  \
 
-# g.
+# g. apt-get clean
 # The apt cache is cleared and the previously downloaded package lists deleted using the apt-get clean command. 
 # Deleted files remain in the old Docker layer if they aren't deleted in the same RUN step.
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
 
-# ----------------------------------------------------------------------------
-# SHELL: qué intérprete usar en los siguientes RUN
-# ----------------------------------------------------------------------------
-# Por defecto Docker usa /bin/sh (un shell más limitado y antiguo). Lo
-# cambiamos a bash por si agregamos más instrucciones con sintaxis
-# moderna (arrays, [[ ]], etc.).
+# h. SHELL
+# By default, Docker uses /bin/sh as the default shell, but this does not support things like arrays, [[ ]], 
+# or process substitution. When running further RUN commands under bash instead, 
+# it will allow me to use all of the syntax I’m used to from terminal (BHB Ch. 1). The flag -c tells bash to execute commands from a string.
 SHELL ["/bin/bash", "-c"]
 
-
-# ----------------------------------------------------------------------------
-# WORKDIR: directorio de trabajo al entrar al contenedor
-# ----------------------------------------------------------------------------
-# Codespaces siempre monta el código del repositorio en
-# /workspaces/<nombre-del-repo>. Establecer /workspaces aquí hace que las
-# terminales se abran cerca de nuestros archivos del curso.
+# i. WORKDIR
+# This sets the default working directory for the container to /workspaces, 
+# where this repo gets mounted when it first gets created, which will cause me to be placed directly 
+# into the project folder instead of the root directory when I get started. Docker will also create this directory for me automatically if it does not exist.
 WORKDIR /workspaces
 
-# Configuración de Git para el contenedor:
-# - safe.directory *: confía en cualquier repo montado (necesario porque
-#   /workspaces/... tiene un UID distinto al de root dentro del container).
-# - init.defaultBranch main: evita warnings de "master vs main" en git init.
-# - pull.rebase false: merge por defecto al hacer pull (más intuitivo)
-# - git lfs install --system: registra los hooks de LFS globalmente para
-#   que, si un repo los necesita, funcionen sin sorpresas.
+# j. RUN git config
+# This will configure Git for all users in the container at the system level. By adding safe.directory '*', 
+# I will prevent errors when the UID of the user who created the repo and the UID of the user in the container are different (causing ownership mismatch). 
+# The pull.rebase false setting maintains the default merge behaviour. Finally, git lfs install --system enables git-lfs (Large File Storage), which is used to track large binary files such as models and datasets on a global basis.
 RUN git config --system --add safe.directory '*' \
- && git config --system init.defaultBranch main \
- && git config --system pull.rebase false \
- && git lfs install --system
+    && git config --system init.defaultBranch main \
+    && git config --system pull.rebase false \
+    && git lfs install --system
 
 # ----------------------------------------------------------------------------
 # CMD: comando que se ejecuta por defecto al arrancar el contenedor
