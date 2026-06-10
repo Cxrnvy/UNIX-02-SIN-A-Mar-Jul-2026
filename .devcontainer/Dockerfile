@@ -31,14 +31,14 @@ FROM kalilinux/kali-rolling:latest
 # they are used to load certain configurations variables that will allow programs to reference those values while they are executing (BHB Ch. 1) [cite: 557, 558].
 # DEBIAN_FRONTEND=non-interactive prevents the Apt package manager from halting an automated build to wait for a user to provide input.
 # LANG and LC_ALL define the localization of the system to allow it to support the character encoding known as UTF-8.
-# TERM tells the system that the terminal in use supports the 256 colors function.D
+# TERM tells the system that the terminal in use supports the 256 colors function.
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=es_ES.UTF-8 \
     LC_ALL=es_ES.UTF-8 \
     TERM=xterm-256color
 
 # c. debconf-set-selections
-# Using a pipe allows us to pre-answer the wireshark install prompt, as described in BHB Chapter 1 (cc. 992), 
+# Using a pipe allows us to pre-answer the wireshark install prompt, as described in BHB Chapter 1, 
 # thus allowing Wireshark to complete the build without waiting for the user to answer whether or not non-root users are allowed to capture traffic. 
 # Pre-answer "no" continues the build.
 RUN echo "wireshark-common wireshark-common/install-setuid boolean false" \
@@ -47,11 +47,20 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean false" \
 
 # d. The large RUN apt-get block
 # Group apt-get update, apt-get install and apt-get clean-up into a single RUN command. 
-# Each RUN creates a new layer; by combining multiple commands into one, we create less layers and save size in the final image. (BHB Ch 3) [cite2160][cite2161].
-# Use && between each command to ensure that the next command will only run if the previous one was successful. (BHB Ch 1) [cite925].
+# Each RUN creates a new layer; by combining multiple commands into one, we create less layers and save size in the final image. (BHB Ch 3).
+# Use && between each command to ensure that the next command will only run if the previous one was successful. (BHB Ch 1).
 # Use --no-install-recommends in order to prevent installing bloatware.
-# The tools being installed are gawk, sed and grep for filter and text-processing purposes (BHB Ch 2) [cite1588][cite1594][cite1619][cite1640]; 
+# The tools being installed are gawk, sed and grep for filter and text-processing purposes (BHB Ch 2; 
 # nmap and tcpdump are also included to probe networks.
+
+# e, f. sed -i and locale-gen
+# We will be using the stream editor 'sed' to perform an inline replacement, 
+# specifically uncommenting the Spanish locale directly inside /etc/locale.gen (BHB Ch. 2) 
+# and then having locale-gen compile it.
+
+# g. apt-get clean
+# The apt cache is cleared and the previously downloaded package lists deleted using the apt-get clean command. 
+# Deleted files remain in the old Docker layer if they aren't deleted in the same RUN step.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     neovim vim zsh bash-completion \
     perl make gawk sed grep \
@@ -61,21 +70,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     shellcheck nmap masscan tcpdump tshark \
     netcat-traditional socat dnsutils whois traceroute mtr-tiny iproute2 net-tools iputils-ping \
     tor torsocks proxychains4 obfs4proxy httpie \
-
-# e, f. sed -i and locale-gen
-# We will be using the stream editor 'sed' to perform an inline replacement, 
-# specifically uncommenting the Spanish locale directly inside /etc/locale.gen (BHB Ch. 2) 
-# and then having locale-gen compile it.
- && sed -i 's/# es_ES.UTF-8/es_ES.UTF-8/' /etc/locale.gen \
- && locale-gen \
- \
-
-# g. apt-get clean
-# The apt cache is cleared and the previously downloaded package lists deleted using the apt-get clean command. 
-# Deleted files remain in the old Docker layer if they aren't deleted in the same RUN step.
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
+    && sed -i 's/# es_ES.UTF-8/es_ES.UTF-8/' /etc/locale.gen \
+    && locale-gen \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # h. SHELL
 # By default, Docker uses /bin/sh as the default shell, but this does not support things like arrays, [[ ]], 
@@ -98,14 +96,14 @@ RUN git config --system --add safe.directory '*' \
     && git config --system pull.rebase false \
     && git lfs install --system
 
-#k. RUN chsh
+# k. RUN chsh
 #RUN chsh (the Change Shell command) will change the user's default login shell in the /etc/passwd file. 
 # I will set it so that every time a terminal session starts in the container, Zsh will be launched instead of bash. 
 # This has the same effect as running a manual chsh in a Linux terminal (BHB Ch. 1); however, I use this installation 
 # step to avoid having to manually run chsh for root every time.
 RUN chsh -s /usr/bin/zsh root
 
-#l. here-document (cat >> ... <<'EOF')
+# l. here-document (cat >> ... <<'EOF')
 # Here-docs allow me to send multiple lines of text to a command without doing it interactively (BHB Ch. 1). 
 # I will do >> for appending rather than overwriting to the .zshrc file. 
 # The PROMPT variable will be used to format the shell prompt to show my name, the current working directory, 
@@ -115,7 +113,7 @@ RUN cat >> /root/.zshrc <<'EOF'
 PROMPT='%F{cyan}[Cesar-Arciniegas]%f %F{yellow}%1~%f %(?.%F{green}✓.%F{red}✗ %?)%f %# '
 EOF
 
-#m. CMD will define the command that will run when the container is run (or started), 
+# m. CMD will define the command that will run when the container is run (or started), 
 # it will be different than RUN because RUN executes at build time to place the command 
 # into the image as part of preparing the image and CMD executes at run time due to either the "docker run" 
 # command or attaching to the container via devcontainer so passing the string "/usr/bin/zsh" will run a Zsh 
