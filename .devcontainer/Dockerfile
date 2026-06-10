@@ -1,19 +1,19 @@
 # ============================================================================
-#  Dockerfile — "receta" para construir la imagen del curso
+#  Dockerfile
 # ============================================================================
-#  Un Dockerfile es un archivo de texto con instrucciones paso a paso que
-#  Docker (o Codespaces) lee de arriba hacia abajo para fabricar una
-#  "imagen". Una imagen es como un molde congelado de un sistema Linux
-#  listo para usar; cada vez que abres el Codespace, se crea un
-#  "contenedor" a partir de ese molde.
-#
-#  Analogía: la imagen es el PLANO, el contenedor es la CASA construida
-#  con ese plano. Puedes construir muchas casas iguales a partir de un
-#  solo plano, y si destruyes una casa el plano sigue intacto.
-#
-#  Cada instrucción (FROM, ENV, RUN...) crea una "capa". Docker guarda
-#  esas capas en caché: si no cambias las primeras líneas, no las
-#  reconstruye y el siguiente build es casi instantáneo.
+# A Dockerfile is a text file with step-by-step instructions that
+# Docker (or Codespaces) reads from top to bottom to build a
+# "image". An image is like a frozen mold of a ready-to-use Linux system
+#; every time you open the Codespace, a
+# "container" is created from that mold.
+
+# Analogy: the image is the PLAN, the container is the HOUSE built
+# with that plan. You can build many identical houses from a single
+# plan, and if you destroy one house, the plan remains intact.
+
+# Each instruction (FROM, ENV, RUN...) creates a "layer". Docker caches
+# these layers: if you don't change the first few lines, it doesn't rebuild them
+# and the next build is almost instantaneous.
 # ============================================================================
 
 
@@ -26,7 +26,7 @@
 FROM kalilinux/kali-rolling:latest
 
 
-b. ENV
+# b. ENV
 # When the system loads certain environment variables into the system, 
 # they are used to load certain configurations variables that will allow programs to reference those values while they are executing (BHB Ch. 1) [cite: 557, 558].
 # DEBIAN_FRONTEND=non-interactive prevents the Apt package manager from halting an automated build to wait for a user to provide input.
@@ -37,131 +37,43 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LC_ALL=es_ES.UTF-8 \
     TERM=xterm-256color
 
-
-# ----------------------------------------------------------------------------
-# Pre-respuesta a una pregunta interactiva de Wireshark
-# ----------------------------------------------------------------------------
-# Wireshark/tshark PREGUNTA durante su instalación si los usuarios
-# normales (no-root) deben poder capturar paquetes. Como en el contenedor
-# siempre somos root, respondemos "false" POR ADELANTADO usando
-# debconf-set-selections para que no detenga el build esperando input.
+# c.
+# Using a pipe allows us to pre-answer the wireshark install prompt, as described in BHB Chapter 1 (cc. 992), 
+# thus allowing Wireshark to complete the build without waiting for the user to answer whether or not non-root users are allowed to capture traffic. 
+# Pre-answer "no" continues the build.
 RUN echo "wireshark-common wireshark-common/install-setuid boolean false" \
     | debconf-set-selections
 
 
-# ----------------------------------------------------------------------------
-# RUN: ejecutar comandos durante la construcción de la imagen
-# ----------------------------------------------------------------------------
-# Aquí instalamos TODO el software del curso en un solo RUN.
-#
-#   apt-get update          -> actualiza la lista de paquetes disponibles
-#   apt-get install         -> descarga e instala los paquetes listados
-#     -y                    -> responde "sí" automáticamente
-#     --no-install-recommends -> instala SOLO lo esencial (no los extras
-#                                sugeridos). Ahorra cientos de MB.
-#
-# ¿Por qué un solo RUN gigante y no 10 RUN pequeños?
-# Porque CADA RUN crea una capa nueva en la imagen. Menos capas = imagen
-# más pequeña, más rápida de construir y de descargar.
-#
-# El "&&" encadena comandos: ejecuta el siguiente SOLO SI el anterior
-# terminó bien. Si algo falla, el build se detiene con error (que es lo
-# que queremos: mejor un error claro que una imagen rota).
+# d. The large RUN apt-get block
+# Group apt-get update, apt-get install and apt-get clean-up into a single RUN command. 
+# Each RUN creates a new layer; by combining multiple commands into one, we create less layers and save size in the final image. (BHB Ch 3) [cite2160][cite2161].
+# Use && between each command to ensure that the next command will only run if the previous one was successful. (BHB Ch 1) [cite925].
+# Use --no-install-recommends in order to prevent installing bloatware.
+# The tools being installed are gawk, sed and grep for filter and text-processing purposes (BHB Ch 2) [cite1588][cite1594][cite1619][cite1640]; 
+# nmap and tcpdump are also included to probe networks.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    \
-    # === Editores de texto y shells (intérpretes de comandos) ===
-    neovim \
-    vim \
-    zsh \
-    bash-completion \
-    \
-    # === Herramientas de 4ta generación ===
-    # Estas son las protagonistas de las Unidades 2, 3 y 4:
-    perl \
-    make \
-    gawk \
-    sed \
-    grep \
-    \
-    # === Utilidades básicas de UNIX ===
-    # coreutils trae cat, ls, head, tail, sort, cut, tr, etc.
-    # findutils trae find y xargs.
-    # procps trae ps, top, kill (gestión de procesos).
-    # less = paginador para leer archivos largos.
-    # tree = muestra directorios como árbol.
-    # jq = procesa JSON desde la línea de comandos.
-    coreutils \
-    findutils \
-    procps \
-    less \
-    tree \
-    jq \
-    \
-    # === Páginas de manual (comando `man`) ===
-    # La imagen base de Kali viene sin documentación para
-    # ahorrar espacio. La reinstalamos porque en el curso "man bash" o
-    # "man grep" es material de consulta obligada.
-    man-db \
-    manpages \
-    manpages-posix \
-    \
-    # === Red básica y utilidades de descarga ===
-    curl \
-    wget \
-    git \
-    git-lfs \
-    ca-certificates \
-    locales \
-    \
-    # === Linter (revisor automático de errores) para scripts Bash ===
-    shellcheck \
-    \
-    # === Reconocimiento y escaneo de red ===
-    # nmap = el escáner de puertos más famoso.
-    # masscan = escaneo masivo de rangos grandes de IPs.
-    nmap \
-    masscan \
-    \
-    # === Captura y análisis de paquetes de red ===
-    # tcpdump = capturador clásico por terminal.
-    # tshark = versión de terminal de Wireshark.
-    tcpdump \
-    tshark \
-    \
-    # === Utilidades de red variadas ===
-    netcat-traditional \
-    socat \
-    dnsutils \
-    whois \
-    traceroute \
-    mtr-tiny \
-    iproute2 \
-    net-tools \
-    iputils-ping \
-    \
-    # === Anonimato: Tor y similares ===
-    # tor = cliente de la red Tor.
-    # torsocks = "envoltorio" que hace pasar cualquier comando por Tor.
-    # proxychains4 = encadena múltiples proxies.
-    # obfs4proxy = ofusca el tráfico de Tor para evadir bloqueos.
-    tor \
-    torsocks \
-    proxychains4 \
-    obfs4proxy \
-    \
-    # === Cliente HTTP más legible que curl para aprender ===
-    httpie \
-    \
- # --- Después de instalar, activamos el idioma español ---
- # sed busca "# es_ES.UTF-8" en /etc/locale.gen y le quita el "#" para
- # activar esa línea. Luego locale-gen compila los archivos de idioma.
+    neovim vim zsh bash-completion \
+    perl make gawk sed grep \
+    coreutils findutils procps less tree jq \
+    man-db manpages manpages-posix \
+    curl wget git git-lfs ca-certificates locales \
+    shellcheck nmap masscan tcpdump tshark \
+    netcat-traditional socat dnsutils whois traceroute mtr-tiny iproute2 net-tools iputils-ping \
+    tor torsocks proxychains4 obfs4proxy httpie \
+
+# e, f. 
+# sed -i and locale-gen
+# We will be using the stream editor 'sed' to perform an inline replacement, 
+# specifically uncommenting the Spanish locale directly inside /etc/locale.gen (BHB Ch. 2) 
+# and then having locale-gen compile it.
  && sed -i 's/# es_ES.UTF-8/es_ES.UTF-8/' /etc/locale.gen \
  && locale-gen \
  \
- # --- Limpieza final: reducir el tamaño de la imagen ---
-# apt deja archivos de caché que ya no necesitamos después de instalar.
- # Borrarlos aquí (en el mismo RUN) hace la capa final más pequeña.
- # Si los borráramos en otro RUN, seguirían ocupando en la capa anterior.
+
+# g.
+# The apt cache is cleared and the previously downloaded package lists deleted using the apt-get clean command. 
+# Deleted files remain in the old Docker layer if they aren't deleted in the same RUN step.
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
