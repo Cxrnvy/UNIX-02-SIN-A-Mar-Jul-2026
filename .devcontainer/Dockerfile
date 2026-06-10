@@ -98,22 +98,26 @@ RUN git config --system --add safe.directory '*' \
     && git config --system pull.rebase false \
     && git lfs install --system
 
-# ----------------------------------------------------------------------------
-# CMD: comando que se ejecuta por defecto al arrancar el contenedor
-# ----------------------------------------------------------------------------
-# Lanza una shell bash interactiva. Codespaces la sobrescribe con su
-# propia terminal integrada de VS Code, pero es buena práctica dejarla
-# definida para que la imagen sea usable también con Docker puro.
-# Prompt del curso para bash
-# Cambiar shell de login de root a zsh dentro de la imagen,
-# para que chsh ya no haga falta y todo sea consistente.
+#k. RUN chsh
+#RUN chsh (the Change Shell command) will change the user's default login shell in the /etc/passwd file. 
+# I will set it so that every time a terminal session starts in the container, Zsh will be launched instead of bash. 
+# This has the same effect as running a manual chsh in a Linux terminal (BHB Ch. 1); however, I use this installation 
+# step to avoid having to manually run chsh for root every time.
 RUN chsh -s /usr/bin/zsh root
 
-# Prompt institucional para los y las estudiantes del curso
+#l. here-document (cat >> ... <<'EOF')
+# Here-docs allow me to send multiple lines of text to a command without doing it interactively (BHB Ch. 1). 
+# I will do >> for appending rather than overwriting to the .zshrc file. 
+# The PROMPT variable will be used to format the shell prompt to show my name, the current working directory, 
+# and either a green checkmark/ red cross followed by the exit code depending on whether or not the last command executed successfully.
 RUN cat >> /root/.zshrc <<'EOF'
-
-# ===== Valida si un comando fue ejecutado correctamente =====
+# ===== Validates if the last command ran successfully =====
 PROMPT='%F{cyan}[Cesar-Arciniegas]%f %F{yellow}%1~%f %(?.%F{green}✓.%F{red}✗ %?)%f %# '
 EOF
 
+#m. CMD will define the command that will run when the container is run (or started), 
+# it will be different than RUN because RUN executes at build time to place the command 
+# into the image as part of preparing the image and CMD executes at run time due to either the "docker run" 
+# command or attaching to the container via devcontainer so passing the string "/usr/bin/zsh" will run a Zsh 
+# interactive session and that is why the terminal will be operable without any further setup after the container is started.
 CMD ["/usr/bin/zsh"]
