@@ -25,3 +25,7 @@ else
  echo "User is not root!"
 #finally I close this main conditional block
 fi
+
+useradd -m luna #adding a user: luna
+su luna #changing to the user luna.
+bash check_root_function.sh #executing the .sh to check if luna is root or not
