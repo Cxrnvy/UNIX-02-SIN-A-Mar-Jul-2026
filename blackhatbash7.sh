@@ -16,3 +16,11 @@ awk '{print $3}' log.txt
 awk '{print $1,$NF}' log.txt
 awk -F',' '{print $1}' example_csv.txt
 
+head log.txt
+awk 'NR < 10' log.txt
+#1.
+grep "42.236.10.117" log.txt 
+#2. 
+awk '{print $7}'
+
+$ grep "42.236.10.117" log.txt | awk '{print $7}'
